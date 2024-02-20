@@ -56,13 +56,7 @@ exports.login = async (req, res, next) => {
 			if (foundUser) {
 				const isEqual = await comparePassword(reqData.password, foundUser.password);
 				if (isEqual) {
-					// Lưu lại token vào DB
-					// res.send token đã lưu
-					// sau khi FE nhận được, lưu vào cookie
-					// const token = uuidv4();
-					// req.session.token = token;
-					// req.session.userId = foundUser._id;
-					// req.session.role = foundUser.role;
+				
 					res.send({
 						userId: foundUser._id,
 						role: foundUser.role,
