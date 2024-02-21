@@ -94,8 +94,7 @@ exports.createOrder = async (req, res, next) => {
 exports.getAllOrder = async (req, res, next) => {
     const { user } = req;
     try {
-        // console.log("reqData:", reqData);
-        const foundOrders = await Order.find({ userId: user._id });
+        const foundOrders = await Order.find({ "user.userId": user._id });
         if (foundOrders) {
             res.json(foundOrders);
         }
@@ -106,8 +105,12 @@ exports.getAllOrder = async (req, res, next) => {
 
 exports.getOrderById = async (req, res, next) => {
     const { user } = req;
+    const { orderId } = req.query;
     try {
-        const foundOrder = await Order.find({ "user.userId": user._id });
+        const foundOrder = await Order.findOne({
+            _id: orderId,
+            "user.userId": user._id,
+        });
         if (foundOrder) {
             res.json(foundOrder);
         }
